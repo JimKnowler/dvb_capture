@@ -24,12 +24,12 @@ Exercise in processing MPEG Transport Streams broadcast over DVB-T
 
 - Learn how to filter elementary streams for each service, so they can be muxed for playback offline
 
-- Learn how to process 
+- Learn how to process DVB / MPEG Transport Stream metadata
 
 
 ## References
 
-- DirectShow DVB-T Tuner graph [https://groups.google.com/forum/#!topic/microsoft.public.win32.programmer.directx.video/Hvy8Vl0bWWY](requires MPEG Demux + TIF to work), even though we're not using them
+- DirectShow DVB-T Tuner graph [requires MPEG Demux + TIF to work](https://groups.google.com/forum/#!topic/microsoft.public.win32.programmer.directx.video/Hvy8Vl0bWWY), even though we're not using them
   
-- [https://ukfree.tv/transmitters/tv/Crystal_Palace](Frequencies for UK/FreeView transmitters)
+- [Frequencies for UK/FreeView transmitters](https://ukfree.tv/transmitters/tv/Crystal_Palace)
   
