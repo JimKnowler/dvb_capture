@@ -1,0 +1,11 @@
+Debug
+Release
+ipch
+*.sdf
+*.suo
+*.opensdf
+*.aps
+*.suo
+*.user
+Template
+x64
