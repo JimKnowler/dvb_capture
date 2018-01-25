@@ -1,8 +1,6 @@
 #include "stdafx.h"
 #include <assert.h>
 
-#include "CaptureFilter.h"
-
 #include "DVBTuner.h"
 
 //#include <Bdaiface.h>
@@ -137,8 +135,10 @@ bool DVBTuner::createGraph() {
 	VALIDATE_HR(connectFilters(graph, baseFilterReceiver, baseFilterTee));
 
 	// Add CaptureFilter (where we can receive the transport stream)
+	captureFilter = new CaptureFilter();
+
 	CComPtr<IBaseFilter> baseFilterCaptureFilter;
-	baseFilterCaptureFilter = new CaptureFilter();
+	VALIDATE_HR(captureFilter->QueryInterface(__uuidof(IBaseFilter), (void**)&baseFilterCaptureFilter));
 
 	VALIDATE_HR(graph->AddFilter(baseFilterCaptureFilter, L"CaptureFilter"));
 	VALIDATE_HR(connectFilters(graph, baseFilterTee, baseFilterCaptureFilter));
@@ -173,6 +173,11 @@ bool DVBTuner::createGraph() {
 	}
 	
 	return true;
+}
+
+bool DVBTuner::setCallbackTransportStream(CallbackTransportStream callback) {
+
+	return captureFilter->setCallbackTransportStream(callback);
 }
 
 bool DVBTuner::tuneToFrequency(long frequency)

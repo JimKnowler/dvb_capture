@@ -1,5 +1,7 @@
 #pragma once
 
+#include "CaptureFilter.h"
+
 #include "DirectShowUtils.h"
 
 #include <Tuner.h>
@@ -13,6 +15,8 @@ public:
 	static bool shutdown();
 
 	bool createGraph();
+	
+	bool setCallbackTransportStream(CallbackTransportStream callback);
 
 	/// @param frequency - specified in kHz
 	bool tuneToFrequency(long frequency);
@@ -27,4 +31,5 @@ private:
 	CComPtr<IMediaEvent> mediaEvent;
 	CComPtr<ITuningSpace> tuningSpace;
 	CComPtr<ITuner> networkProviderTuner;
+	CComPtr<CaptureFilter> captureFilter;
 };

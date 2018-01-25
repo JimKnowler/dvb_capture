@@ -1,18 +1,23 @@
 typedef wchar_t *PTCHAR;
 #include <streams.h>
 
+#include <functional>
+typedef std::function<void(const BYTE*, long)> CallbackTransportStream;
+
 class CaptureFilter : public CBaseRenderer
 {
 public:
 	CaptureFilter();
 
-	virtual ~CaptureFilter();
+	bool setCallbackTransportStream(CallbackTransportStream callback);
 
-	virtual HRESULT CheckMediaType(const CMediaType* mtIn);
-
-	virtual HRESULT DoRenderSample(IMediaSample* pMediaSample);
-
+public: // CBaseRenderer
+	~CaptureFilter() override;
+	HRESULT CheckMediaType(const CMediaType* mtIn) override;
+	HRESULT DoRenderSample(IMediaSample* pMediaSample) override;
 
 private:
 	HRESULT _hr;
+
+	CallbackTransportStream callback;
 };
