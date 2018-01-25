@@ -84,12 +84,18 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CaptureFilter.h" />
+    <ClInclude Include="DirectShowUtils.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="DVBTuner.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CaptureFilter.cpp" />
+    <ClCompile Include="DirectShowUtils.cpp" />
     <ClCompile Include="dvb_capture.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="DVBTuner.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
