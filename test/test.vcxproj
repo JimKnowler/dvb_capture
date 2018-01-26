@@ -52,7 +52,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\3rdParty\gmock-1.7.0\gtest\include;..\3rdParty\gmock-1.7.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\ts\include;..\3rdParty\gmock-1.7.0\gtest\include;..\3rdParty\gmock-1.7.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -68,7 +68,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\3rdParty\gmock-1.7.0\gtest\include;..\3rdParty\gmock-1.7.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\ts\include;..\3rdParty\gmock-1.7.0\gtest\include;..\3rdParty\gmock-1.7.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -80,6 +80,9 @@
   <ItemGroup>
     <ProjectReference Include="..\3rdParty\gmock-1.7.0\gmock-1.7.0.vcxproj">
       <Project>{b24338e9-d2dc-463e-94c1-d9868ed5786a}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\ts\ts.vcxproj">
+      <Project>{e4b39c3d-969e-4bff-9744-eaec0954f7ec}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

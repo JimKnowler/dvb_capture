@@ -2,9 +2,11 @@
 //
 
 #include "stdafx.h"
-#include "DVBTuner.h"
-#include <assert.h>
 
+#include "DVBTuner.h"
+#include "ts/ts.h"
+
+#include <assert.h>
 #include <memory>
 
 const long kTuneFrequency = 490 * 1000;		// kHz
