@@ -17,12 +17,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\ts\ts.h">
+    <ClInclude Include="include\ts\TSParser.h">
+      <Filter>Header Files\ts</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ts\TSPacket.h">
       <Filter>Header Files\ts</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\ts\ts.cpp">
+    <ClCompile Include="src\ts\TSParser.cpp">
       <Filter>Source Files\ts</Filter>
     </ClCompile>
   </ItemGroup>

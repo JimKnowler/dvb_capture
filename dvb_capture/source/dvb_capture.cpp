@@ -4,7 +4,7 @@
 #include "stdafx.h"
 
 #include "DVBTuner.h"
-#include "ts/ts.h"
+#include "ts/TSParser.h"
 
 #include <assert.h>
 #include <memory>

@@ -2,6 +2,8 @@
 
 namespace ts {
 
+	class TSParser {
 
+	};
 
 }

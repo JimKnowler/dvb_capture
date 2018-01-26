@@ -5,10 +5,24 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="src\test">
+      <UniqueIdentifier>{3130f526-0c1a-4739-9e7a-ab196e20d3b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\test\ts">
+      <UniqueIdentifier>{2ec08f0d-e6be-432b-91ff-3fab85913004}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="test.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="src\test\ts\TestTSParser.cpp">
+      <Filter>src\test\ts</Filter>
     </ClCompile>
+    <ClCompile Include="src\test\ts\TestTSPacket.cpp">
+      <Filter>src\test\ts</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\test\ts\TestUtils.h">
+      <Filter>src\test\ts</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
