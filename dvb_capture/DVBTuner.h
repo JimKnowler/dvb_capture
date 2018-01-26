@@ -26,10 +26,10 @@ public:
 	bool stop();
 
 private:
-	CComPtr<IGraphBuilder> graph;
-	CComPtr<IMediaControl> mediaControl;
-	CComPtr<IMediaEvent> mediaEvent;
-	CComPtr<ITuningSpace> tuningSpace;
-	CComPtr<ITuner> networkProviderTuner;
-	CComPtr<CaptureFilter> captureFilter;
+	CComPtr<IGraphBuilder> m_graph;
+	CComPtr<IMediaControl> m_mediaControl;
+	CComPtr<IMediaEvent> m_mediaEvent;
+	CComPtr<ITuningSpace> m_tuningSpace;
+	CComPtr<ITuner> m_networkProviderTuner;
+	CComPtr<CaptureFilter> mcaptureFilter;
 };

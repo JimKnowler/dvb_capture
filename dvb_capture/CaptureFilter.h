@@ -17,7 +17,7 @@ public: // CBaseRenderer
 	HRESULT DoRenderSample(IMediaSample* pMediaSample) override;
 
 private:
-	HRESULT _hr;
+	HRESULT m_hr;
 
-	CallbackTransportStream callback;
+	CallbackTransportStream m_callback;
 };

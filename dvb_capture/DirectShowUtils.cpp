@@ -2,12 +2,12 @@
 
 #include "DirectShowUtils.h"
 
-HRESULT InvokeHR(HRESULT hr, const char* str) {
+HRESULT invokeHR(HRESULT hr, const char* str) {
 	LOG_HR(str, hr);
 	return hr;
 }
 
-HRESULT EnumerateDevicesByClass(const ::CLSID& clsid, std::vector <CComPtr <::IMoniker>>& monikers)
+HRESULT enumerateDevicesByClass(const ::CLSID& clsid, std::vector <CComPtr <::IMoniker>>& monikers)
 {
 	// Reset content of vector
 	monikers.clear();
@@ -43,7 +43,7 @@ HRESULT EnumerateDevicesByClass(const ::CLSID& clsid, std::vector <CComPtr <::IM
 	return S_OK;
 }
 
-HRESULT IsPinConnected(CComPtr<IPin> pin, bool& outResult)
+HRESULT isPinConnected(CComPtr<IPin> pin, bool& outResult)
 {
 	CComPtr<IPin> pinTmp;
 	HRESULT hr = pin->ConnectedTo(&pinTmp);
@@ -62,7 +62,7 @@ HRESULT IsPinConnected(CComPtr<IPin> pin, bool& outResult)
 	return hr;
 }
 
-HRESULT IsPinDirection(CComPtr<IPin> pin, PIN_DIRECTION dir, bool& outResult)
+HRESULT isPinDirection(CComPtr<IPin> pin, PIN_DIRECTION dir, bool& outResult)
 {
 	PIN_DIRECTION pinDir;
 	VALIDATE_HR(pin->QueryDirection(&pinDir));
@@ -72,16 +72,16 @@ HRESULT IsPinDirection(CComPtr<IPin> pin, PIN_DIRECTION dir, bool& outResult)
 	return S_OK;
 }
 
-HRESULT MatchPin(CComPtr<IPin> pin, PIN_DIRECTION direction, bool shouldBeConnected, bool& outResult)
+HRESULT matchPin(CComPtr<IPin> pin, PIN_DIRECTION direction, bool shouldBeConnected, bool& outResult)
 {
 	bool isMatch = false;
 	bool isConnected = false;
 
-	VALIDATE_HR(IsPinConnected(pin, isConnected));
+	VALIDATE_HR(isPinConnected(pin, isConnected));
 
 	if (isConnected == shouldBeConnected)
 	{
-		VALIDATE_HR(IsPinDirection(pin, direction, isMatch));
+		VALIDATE_HR(isPinDirection(pin, direction, isMatch));
 	}
 
 	outResult = isMatch;
@@ -89,7 +89,7 @@ HRESULT MatchPin(CComPtr<IPin> pin, PIN_DIRECTION direction, bool shouldBeConnec
 	return S_OK;
 }
 
-HRESULT FindUnconnectedPin(CComPtr<IBaseFilter> filter, PIN_DIRECTION pinDir, CComPtr<IPin>& outPin)
+HRESULT findUnconnectedPin(CComPtr<IBaseFilter> filter, PIN_DIRECTION pinDir, CComPtr<IPin>& outPin)
 {
 	HRESULT hr = S_OK;
 
@@ -108,7 +108,7 @@ HRESULT FindUnconnectedPin(CComPtr<IBaseFilter> filter, PIN_DIRECTION pinDir, CC
 			break;
 		}
 
-		VALIDATE_HR(MatchPin(pin, pinDir, false, isFound));
+		VALIDATE_HR(matchPin(pin, pinDir, false, isFound));
 		if (isFound)
 		{
 			outPin = pin;
@@ -121,10 +121,10 @@ HRESULT FindUnconnectedPin(CComPtr<IBaseFilter> filter, PIN_DIRECTION pinDir, CC
 HRESULT connectFilters(CComPtr<IGraphBuilder> graph, CComPtr<IBaseFilter> sourceBaseFilter, CComPtr<IBaseFilter> targetBaseFilter) {
 
 	CComPtr<IPin> pinOutput;
-	VALIDATE_HR(FindUnconnectedPin(sourceBaseFilter, PINDIR_OUTPUT, pinOutput));
+	VALIDATE_HR(findUnconnectedPin(sourceBaseFilter, PINDIR_OUTPUT, pinOutput));
 
 	CComPtr<IPin> pinInput;
-	VALIDATE_HR(FindUnconnectedPin(targetBaseFilter, PINDIR_INPUT, pinInput));
+	VALIDATE_HR(findUnconnectedPin(targetBaseFilter, PINDIR_INPUT, pinInput));
 
 	VALIDATE_HR(graph->Connect(pinOutput, pinInput));
 

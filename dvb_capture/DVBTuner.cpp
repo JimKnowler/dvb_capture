@@ -47,7 +47,7 @@ bool DVBTuner::createGraph() {
 	// These filters are usually installed by vendors of hardware tuners
 	// when they provide BDA-compatible drivers.
 	std::vector<CComPtr<::IMoniker>> tunerMonikers;
-	VALIDATE_HR(EnumerateDevicesByClass(KSCATEGORY_BDA_NETWORK_TUNER, tunerMonikers));
+	VALIDATE_HR(enumerateDevicesByClass(KSCATEGORY_BDA_NETWORK_TUNER, tunerMonikers));
 	assert(tunerMonikers.size() == 1);
 
 	CComPtr<IMoniker> moniker;
@@ -55,11 +55,11 @@ bool DVBTuner::createGraph() {
 
 	// Create instance of Filter Graph Manager	
 	VALIDATE_HR(CoCreateInstance(CLSID_FilterGraph, NULL,
-		CLSCTX_INPROC_SERVER, IID_IGraphBuilder, (void**)&graph));
+		CLSCTX_INPROC_SERVER, IID_IGraphBuilder, (void**)&m_graph));
 
 	// get control interfaces for the Filter Graph Manager
-	VALIDATE_HR(graph->QueryInterface(IID_IMediaControl, (void **)&mediaControl));
-	VALIDATE_HR(graph->QueryInterface(IID_IMediaEvent, (void **)&mediaEvent));
+	VALIDATE_HR(m_graph->QueryInterface(IID_IMediaControl, (void **)&m_mediaControl));
+	VALIDATE_HR(m_graph->QueryInterface(IID_IMediaEvent, (void **)&m_mediaEvent));
 
 	// create network provider
 	CComPtr<IBDA_NetworkProvider> networkProvider;
@@ -71,18 +71,18 @@ bool DVBTuner::createGraph() {
 	VALIDATE_HR(networkProvider->QueryInterface(IID_IBaseFilter, (void **)&networkProviderBaseFilter));
 
 	// get ITuner interface for network provider	
-	VALIDATE_HR(networkProvider->QueryInterface(__uuidof(ITuner), (void **)&networkProviderTuner));
+	VALIDATE_HR(networkProvider->QueryInterface(__uuidof(ITuner), (void **)&m_networkProviderTuner));
 
 	// create instance of tuner from moniker
 	CComPtr<IBaseFilter> tunerBaseFilter;
 	VALIDATE_HR(moniker->BindToObject(0, 0, IID_IBaseFilter, (void **)&tunerBaseFilter));
 
 	// add network provider to the graph
-	VALIDATE_HR(graph->AddFilter(networkProviderBaseFilter, L"NetworkProvider"));
-	VALIDATE_HR(graph->AddFilter(tunerBaseFilter, L"Tuner"));
+	VALIDATE_HR(m_graph->AddFilter(networkProviderBaseFilter, L"NetworkProvider"));
+	VALIDATE_HR(m_graph->AddFilter(tunerBaseFilter, L"Tuner"));
 
 	// connect Network Provider to Tuner
-	VALIDATE_HR(connectFilters(graph, networkProviderBaseFilter, tunerBaseFilter));
+	VALIDATE_HR(connectFilters(m_graph, networkProviderBaseFilter, tunerBaseFilter));
 
 	// enumerate Tuning Spaces
 	CComPtr<ITuningSpaceContainer> tuningSpaceContainer;
@@ -93,18 +93,18 @@ bool DVBTuner::createGraph() {
 	VALIDATE_HR(tuningSpaceContainer->get_EnumTuningSpaces(&enumTuningSpaces));
 
 	/// @note this assumes only one tuning space	
-	while (!tuningSpace.p) {
+	while (!m_tuningSpace.p) {
 		ULONG numFetched = 0;
-		VALIDATE_HR(enumTuningSpaces->Next(1, &tuningSpace, &numFetched));
+		VALIDATE_HR(enumTuningSpaces->Next(1, &m_tuningSpace, &numFetched));
 
 		assert(numFetched > 0);
 
 		BSTR friendlyName;
-		VALIDATE_HR(tuningSpace->get_FriendlyName(&friendlyName));
+		VALIDATE_HR(m_tuningSpace->get_FriendlyName(&friendlyName));
 		printf("FOUND TUNING SPACE: %S\n", friendlyName);
 
-		if (FAILED(INVOKE_HR(networkProviderTuner->put_TuningSpace(tuningSpace)))) {
-			tuningSpace.Release();
+		if (FAILED(INVOKE_HR(m_networkProviderTuner->put_TuningSpace(m_tuningSpace)))) {
+			m_tuningSpace.Release();
 		}
 		else {
 			printf("CHOSEN TUNING SPACE: %S\n", friendlyName);
@@ -115,7 +115,7 @@ bool DVBTuner::createGraph() {
 
 	// Enumerate Receivers
 	std::vector<CComPtr<IMoniker>> receiverMonikers;
-	VALIDATE_HR(EnumerateDevicesByClass(KSCATEGORY_BDA_RECEIVER_COMPONENT, receiverMonikers));
+	VALIDATE_HR(enumerateDevicesByClass(KSCATEGORY_BDA_RECEIVER_COMPONENT, receiverMonikers));
 	assert(1 == receiverMonikers.size());
 	CComPtr<IMoniker> receiverMoniker = receiverMonikers[0];
 
@@ -124,24 +124,24 @@ bool DVBTuner::createGraph() {
 	VALIDATE_HR(receiverMoniker->BindToObject(0, 0, IID_IBaseFilter, (void**)&baseFilterReceiver));
 
 	// Add Receiver to Graph
-	VALIDATE_HR(graph->AddFilter(baseFilterReceiver, L"Receiver"));
-	VALIDATE_HR(connectFilters(graph, tunerBaseFilter, baseFilterReceiver));
+	VALIDATE_HR(m_graph->AddFilter(baseFilterReceiver, L"Receiver"));
+	VALIDATE_HR(connectFilters(m_graph, tunerBaseFilter, baseFilterReceiver));
 
 	// Add Infinite Tee filter (to split output)
 	CComPtr<IBaseFilter> baseFilterTee;
 	VALIDATE_HR(CoCreateInstance(CLSID_InfTee, NULL,
 		CLSCTX_INPROC_SERVER, IID_IBaseFilter, (void**)&baseFilterTee));
-	VALIDATE_HR(graph->AddFilter(baseFilterTee, L"Tee"));
-	VALIDATE_HR(connectFilters(graph, baseFilterReceiver, baseFilterTee));
+	VALIDATE_HR(m_graph->AddFilter(baseFilterTee, L"Tee"));
+	VALIDATE_HR(connectFilters(m_graph, baseFilterReceiver, baseFilterTee));
 
 	// Add CaptureFilter (where we can receive the transport stream)
-	captureFilter = new CaptureFilter();
+	mcaptureFilter = new CaptureFilter();
 
 	CComPtr<IBaseFilter> baseFilterCaptureFilter;
-	VALIDATE_HR(captureFilter->QueryInterface(__uuidof(IBaseFilter), (void**)&baseFilterCaptureFilter));
+	VALIDATE_HR(mcaptureFilter->QueryInterface(__uuidof(IBaseFilter), (void**)&baseFilterCaptureFilter));
 
-	VALIDATE_HR(graph->AddFilter(baseFilterCaptureFilter, L"CaptureFilter"));
-	VALIDATE_HR(connectFilters(graph, baseFilterTee, baseFilterCaptureFilter));
+	VALIDATE_HR(m_graph->AddFilter(baseFilterCaptureFilter, L"CaptureFilter"));
+	VALIDATE_HR(connectFilters(m_graph, baseFilterTee, baseFilterCaptureFilter));
 
 
 	// add MPEG-2 De-Multiplexer (so that graph can run)
@@ -149,26 +149,26 @@ bool DVBTuner::createGraph() {
 	VALIDATE_HR(CoCreateInstance(CLSID_MPEG2Demultiplexer, NULL,
 		CLSCTX_INPROC_SERVER, IID_IBaseFilter, (void**)&baseFilterDemux));
 
-	VALIDATE_HR(graph->AddFilter(baseFilterDemux, L"MPEG2-Demux (vestigial)"));
-	VALIDATE_HR(connectFilters(graph, baseFilterTee, baseFilterDemux));
+	VALIDATE_HR(m_graph->AddFilter(baseFilterDemux, L"MPEG2-Demux (vestigial)"));
+	VALIDATE_HR(connectFilters(m_graph, baseFilterTee, baseFilterDemux));
 
 	// enumerate Transport Information Filters (TIF)
 	std::vector<CComPtr<IMoniker>> transportInformationMonikers;
-	VALIDATE_HR(EnumerateDevicesByClass(KSCATEGORY_BDA_TRANSPORT_INFORMATION, transportInformationMonikers));
+	VALIDATE_HR(enumerateDevicesByClass(KSCATEGORY_BDA_TRANSPORT_INFORMATION, transportInformationMonikers));
 
 	for (auto transportInformationMoniker : transportInformationMonikers) {
 		CComPtr<IBaseFilter> baseFilterTransportInformation;
 		VALIDATE_HR(transportInformationMoniker->BindToObject(0, 0, IID_IBaseFilter, (void**)&baseFilterTransportInformation));
 
-		VALIDATE_HR(graph->AddFilter(baseFilterTransportInformation, L"TIF"));
+		VALIDATE_HR(m_graph->AddFilter(baseFilterTransportInformation, L"TIF"));
 
-		if (SUCCEEDED(connectFilters(graph, baseFilterDemux, baseFilterTransportInformation))) {
+		if (SUCCEEDED(connectFilters(m_graph, baseFilterDemux, baseFilterTransportInformation))) {
 			printf("TRANSPORT INFORMATION FILTER CONNECTED\n");
 			break;
 		}
 		else
 		{
-			VALIDATE_HR(graph->RemoveFilter(baseFilterTransportInformation));
+			VALIDATE_HR(m_graph->RemoveFilter(baseFilterTransportInformation));
 		}
 	}
 	
@@ -177,13 +177,13 @@ bool DVBTuner::createGraph() {
 
 bool DVBTuner::setCallbackTransportStream(CallbackTransportStream callback) {
 
-	return captureFilter->setCallbackTransportStream(callback);
+	return mcaptureFilter->setCallbackTransportStream(callback);
 }
 
 bool DVBTuner::tuneToFrequency(long frequency)
 {
 	CComPtr<ITuneRequest> tuneRequest;
-	VALIDATE_HR(tuningSpace->CreateTuneRequest(&tuneRequest));
+	VALIDATE_HR(m_tuningSpace->CreateTuneRequest(&tuneRequest));
 
 	CComPtr<IDVBTuneRequest> dvbTuneRequest;
 	VALIDATE_HR(tuneRequest->QueryInterface(__uuidof(IDVBTuneRequest), (void**)&dvbTuneRequest));
@@ -210,19 +210,19 @@ bool DVBTuner::tuneToFrequency(long frequency)
 	CComPtr<IDigitalLocator> digitalLocator = dvbtLocator;
 
 	VALIDATE_HR(tuneRequest->put_Locator(digitalLocator));
-	VALIDATE_HR(networkProviderTuner->put_TuneRequest(tuneRequest));
+	VALIDATE_HR(m_networkProviderTuner->put_TuneRequest(tuneRequest));
 
 	return true;
 }
 
 bool DVBTuner::start() {
-	VALIDATE_HR(mediaControl->Run());
+	VALIDATE_HR(m_mediaControl->Run());
 
 	return true;
 }
 
 bool DVBTuner::stop() {
-	VALIDATE_HR(mediaControl->Stop());
+	VALIDATE_HR(m_mediaControl->Stop());
 
 	return true;
 }

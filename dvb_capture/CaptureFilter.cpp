@@ -14,8 +14,8 @@ APP_GUID(CLSID_CaptureFilter, 0xfd628dda, 0x002a, 0x11e8, 0xba, 0x89, 0x0e, 0xd5
 
 const auto kNullCallbackTransportStream = [](const BYTE*, long) {};
 
-CaptureFilter::CaptureFilter() : CBaseRenderer(CLSID_CaptureFilter, L"CaptureFilter", NULL, &_hr) {
-	callback = kNullCallbackTransportStream;
+CaptureFilter::CaptureFilter() : CBaseRenderer(CLSID_CaptureFilter, L"CaptureFilter", NULL, &m_hr) {
+	m_callback = kNullCallbackTransportStream;
 }
 
 CaptureFilter::~CaptureFilter() {
@@ -23,7 +23,7 @@ CaptureFilter::~CaptureFilter() {
 
 bool CaptureFilter::setCallbackTransportStream(CallbackTransportStream inCallback)
 {
-	callback = inCallback;
+	m_callback = inCallback;
 
 	return true;
 }
@@ -46,7 +46,7 @@ HRESULT CaptureFilter::DoRenderSample(IMediaSample* pMediaSample) {
 	BYTE* buffer;
 	VALIDATE_HR(pMediaSample->GetPointer(&buffer));
 
-	callback(buffer, actualSize);	
+	m_callback(buffer, actualSize);	
 
 	return S_OK;
 }
