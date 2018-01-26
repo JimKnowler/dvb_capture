@@ -13,10 +13,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\test\ts\TestTSParser.cpp">
+    <ClCompile Include="src\test\ts\TestParser.cpp">
       <Filter>src\test\ts</Filter>
     </ClCompile>
-    <ClCompile Include="src\test\ts\TestTSPacket.cpp">
+    <ClCompile Include="src\test\ts\TestPacket.cpp">
       <Filter>src\test\ts</Filter>
     </ClCompile>
   </ItemGroup>

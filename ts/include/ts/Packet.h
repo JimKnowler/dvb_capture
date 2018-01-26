@@ -2,7 +2,7 @@
 
 namespace ts {
 	
-	class TSPacket {
+	class Packet {
 	public:
 
 	};

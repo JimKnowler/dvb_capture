@@ -86,8 +86,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\test\ts\TestTSPacket.cpp" />
-    <ClCompile Include="src\test\ts\TestTSParser.cpp" />
+    <ClCompile Include="src\test\ts\TestPacket.cpp" />
+    <ClCompile Include="src\test\ts\TestParser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\test\ts\TestUtils.h" />

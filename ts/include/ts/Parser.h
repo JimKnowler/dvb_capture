@@ -2,14 +2,14 @@
 
 #include <functional>
 
-#include "ts/TSPacket.h"
+#include "ts/Packet.h"
 
 namespace ts {
 
-	class TSParser {
+	class Parser {
 	public:
 		
-		typedef std::function<void(const TSPacket& packet)> CallbackPacket;
+		typedef std::function<void(const Packet& packet)> CallbackPacket;
 
 		void setCallbackPacket(CallbackPacket callback);
 	};

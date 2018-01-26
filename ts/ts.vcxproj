@@ -11,11 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\ts\TSPacket.h" />
-    <ClInclude Include="include\ts\TSParser.h" />
+    <ClInclude Include="include\ts\Packet.h" />
+    <ClInclude Include="include\ts\Parser.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\ts\TSParser.cpp" />
+    <ClCompile Include="src\ts\Parser.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E4B39C3D-969E-4BFF-9744-EAEC0954F7EC}</ProjectGuid>
