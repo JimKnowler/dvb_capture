@@ -9,7 +9,8 @@ Exercise in processing MPEG Transport Streams broadcast over DVB-T
 - DVB-T Tuner 
   - Testing with "[August DVB-T210](https://www.amazon.co.uk/gp/product/B008D8K50Q)" USB Freeview HD TV Tuner 
   
-- DirectShow '[base classes](https://msdn.microsoft.com/en-us/library/windows/desktop/dd318238(v=vs.85).aspx)', as provided with Windows SDK 7.1 
+- DirectShow '[base classes](https://msdn.microsoft.com/en-us/library/windows/desktop/dd318238(v=vs.85).aspx)', as provided with [Windows SDK 7.1](https://www.microsoft.com/en-us/download/confirmation.aspx?id=8279)
+  - Note: you need to build X64 Debug + Release targets for the multimedia/directshow/baseclasses sample
 
 
 ## Goals
