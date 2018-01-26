@@ -9,8 +9,8 @@ TEST(TSParser, ShouldConstructInstance) {
 	UNUSED(parser);
 }
 
-/*
-TEST(TSParser, ShouldSetPacketCallback) {
-
+TEST(TSParser, ShouldSetCallbackPacket) {
+	ts::TSParser parser;
+	parser.setCallbackPacket([](const ts::TSPacket& packet) {});
 }
-*/
+

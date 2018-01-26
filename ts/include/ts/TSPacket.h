@@ -3,6 +3,7 @@
 namespace ts {
 	
 	class TSPacket {
+	public:
 
 	};
 }
