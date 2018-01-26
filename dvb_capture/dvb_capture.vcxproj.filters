@@ -1,42 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="source">
+    <Filter Include="src">
       <UniqueIdentifier>{e5be3966-bdcc-47a4-a71d-25d7f0add1b8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\targetver.h">
-      <Filter>source</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="source\CaptureFilter.h">
-      <Filter>source</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="source\DirectShowUtils.h">
-      <Filter>source</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="source\DVBTuner.h">
-      <Filter>source</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="source\stdafx.h">
-      <Filter>source</Filter>
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\CaptureFilter.cpp">
-      <Filter>source</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="source\DirectShowUtils.cpp">
-      <Filter>source</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="source\dvb_capture.cpp">
-      <Filter>source</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="source\DVBTuner.cpp">
-      <Filter>source</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="source\stdafx.cpp">
-      <Filter>source</Filter>
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
