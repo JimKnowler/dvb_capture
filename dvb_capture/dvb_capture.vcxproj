@@ -81,18 +81,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="source\CaptureFilter.h" />
-    <ClInclude Include="source\DirectShowUtils.h" />
-    <ClInclude Include="source\stdafx.h" />
-    <ClInclude Include="source\targetver.h" />
-    <ClInclude Include="source\DVBTuner.h" />
+    <ClInclude Include="src\ds\CaptureFilter.h" />
+    <ClInclude Include="src\ds\DirectShowUtils.h" />
+    <ClInclude Include="src\ds\stdafx.h" />
+    <ClInclude Include="src\ds\targetver.h" />
+    <ClInclude Include="src\ds\DVBTuner.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\CaptureFilter.cpp" />
-    <ClCompile Include="source\DirectShowUtils.cpp" />
-    <ClCompile Include="source\dvb_capture.cpp" />
-    <ClCompile Include="source\stdafx.cpp" />
-    <ClCompile Include="source\DVBTuner.cpp" />
+    <ClCompile Include="src\ds\CaptureFilter.cpp" />
+    <ClCompile Include="src\ds\DirectShowUtils.cpp" />
+    <ClCompile Include="src\ds\stdafx.cpp" />
+    <ClCompile Include="src\dvb_capture.cpp" />
+    <ClCompile Include="src\ds\DVBTuner.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ts\ts.vcxproj">

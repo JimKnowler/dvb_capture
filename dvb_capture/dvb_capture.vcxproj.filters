@@ -4,39 +4,40 @@
     <Filter Include="src">
       <UniqueIdentifier>{e5be3966-bdcc-47a4-a71d-25d7f0add1b8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ds">
+      <UniqueIdentifier>{5c60251c-8b02-44a2-9eff-8f18b07f7d82}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="source\targetver.h">
-      <Filter>src</Filter>
+    <ClInclude Include="src\ds\CaptureFilter.h">
+      <Filter>src\ds</Filter>
     </ClInclude>
-    <ClInclude Include="source\CaptureFilter.h">
-      <Filter>src</Filter>
+    <ClInclude Include="src\ds\DirectShowUtils.h">
+      <Filter>src\ds</Filter>
     </ClInclude>
-    <ClInclude Include="source\DirectShowUtils.h">
-      <Filter>src</Filter>
+    <ClInclude Include="src\ds\DVBTuner.h">
+      <Filter>src\ds</Filter>
     </ClInclude>
-    <ClInclude Include="source\DVBTuner.h">
-      <Filter>src</Filter>
+    <ClInclude Include="src\ds\targetver.h">
+      <Filter>src\ds</Filter>
     </ClInclude>
-    <ClInclude Include="source\stdafx.h">
-      <Filter>src</Filter>
+    <ClInclude Include="src\ds\stdafx.h">
+      <Filter>src\ds</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\CaptureFilter.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="src\dvb_capture.cpp" />
+    <ClCompile Include="src\ds\CaptureFilter.cpp">
+      <Filter>src\ds</Filter>
     </ClCompile>
-    <ClCompile Include="source\DirectShowUtils.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="src\ds\DirectShowUtils.cpp">
+      <Filter>src\ds</Filter>
     </ClCompile>
-    <ClCompile Include="source\dvb_capture.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="src\ds\DVBTuner.cpp">
+      <Filter>src\ds</Filter>
     </ClCompile>
-    <ClCompile Include="source\DVBTuner.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="source\stdafx.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="src\ds\stdafx.cpp">
+      <Filter>src\ds</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

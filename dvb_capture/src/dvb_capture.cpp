@@ -1,9 +1,9 @@
 // dvb_capture.cpp : Defines the entry point for the console application.
 //
 
-#include "stdafx.h"
+#include "ds/stdafx.h"
+#include "ds/DVBTuner.h"
 
-#include "DVBTuner.h"
 #include "ts/TSParser.h"
 
 #include <assert.h>
@@ -15,18 +15,18 @@ void run();
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	DVBTuner::init();
+	ds::DVBTuner::init();
 	
 	run();	
 
-	DVBTuner::shutdown();
+	ds::DVBTuner::shutdown();
 
 	return 0;
 }
 
 void run() {
 
-	std::unique_ptr<DVBTuner> dvbTuner(new DVBTuner());
+	std::unique_ptr<ds::DVBTuner> dvbTuner(new ds::DVBTuner());
 
 	dvbTuner->createGraph();
 
