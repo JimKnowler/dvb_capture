@@ -86,6 +86,7 @@
     <ClInclude Include="src\ds\stdafx.h" />
     <ClInclude Include="src\ds\targetver.h" />
     <ClInclude Include="src\ds\DVBTuner.h" />
+    <ClInclude Include="src\util\FileSink.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ds\CaptureFilter.cpp" />
@@ -93,6 +94,7 @@
     <ClCompile Include="src\ds\stdafx.cpp" />
     <ClCompile Include="src\dvb_capture.cpp" />
     <ClCompile Include="src\ds\DVBTuner.cpp" />
+    <ClCompile Include="src\util\FileSink.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ts\ts.vcxproj">

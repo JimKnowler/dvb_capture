@@ -3,6 +3,7 @@
 
 #include "ds/stdafx.h"
 #include "ds/DVBTuner.h"
+#include "util/FileSink.h"
 
 #include "ts/Parser.h"
 
@@ -30,9 +31,13 @@ void run() {
 
 	dvbTuner->createGraph();
 
-	dvbTuner->setCallbackTransportStream([](const BYTE* buffer, long length) {		
+	util::FileSink fileSink("dvb_capture.dat");
+
+	dvbTuner->setCallbackTransportStream([&](const BYTE* buffer, long length) {		
 		printf("Transport stream data -> [%02x %02x %02x %02x %02x %02x %02x %02x]\n",
 			buffer[0], buffer[1], buffer[2], buffer[3], buffer[4], buffer[5], buffer[6], buffer[7]);
+
+		fileSink.write(buffer, length);
 	});
 	
 	printf("Tune\n");
@@ -41,8 +46,8 @@ void run() {
 	printf("start the graph\n");
 	dvbTuner->start();
 
-	printf("wait 10 seconds\n");
-	Sleep(10 * 1000);
+	printf("wait 3 seconds\n");
+	Sleep(3 * 1000);
 
 	printf("stop the graph\n");
 	dvbTuner->stop();

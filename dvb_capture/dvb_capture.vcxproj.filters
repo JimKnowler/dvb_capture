@@ -7,6 +7,9 @@
     <Filter Include="src\ds">
       <UniqueIdentifier>{5c60251c-8b02-44a2-9eff-8f18b07f7d82}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\util">
+      <UniqueIdentifier>{8ecf5865-183e-49a9-b4a5-977ca3a5906b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ds\CaptureFilter.h">
@@ -24,9 +27,11 @@
     <ClInclude Include="src\ds\stdafx.h">
       <Filter>src\ds</Filter>
     </ClInclude>
+    <ClInclude Include="src\util\FileSink.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\dvb_capture.cpp" />
     <ClCompile Include="src\ds\CaptureFilter.cpp">
       <Filter>src\ds</Filter>
     </ClCompile>
@@ -38,6 +43,12 @@
     </ClCompile>
     <ClCompile Include="src\ds\stdafx.cpp">
       <Filter>src\ds</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dvb_capture.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\FileSink.cpp">
+      <Filter>src\util</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
