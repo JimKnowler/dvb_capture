@@ -12,6 +12,11 @@ namespace ts {
 		typedef std::function<void(const Packet& packet)> CallbackPacket;
 
 		void setCallbackPacket(CallbackPacket callback);
+
+		void parse(uint8_t* buffer, size_t length);
+
+	private:
+		CallbackPacket callbackPacket;
 	};
 
 }

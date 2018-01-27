@@ -19,6 +19,9 @@
     <ClCompile Include="src\test\ts\TestPacket.cpp">
       <Filter>src\test\ts</Filter>
     </ClCompile>
+    <ClCompile Include="src\test\ts\TestUtils.cpp">
+      <Filter>src\test\ts</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\test\ts\TestUtils.h">

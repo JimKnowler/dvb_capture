@@ -92,7 +92,8 @@ namespace ts {
 
 		enum : uint8_t {
 			kStuffingByte = 0xff,
-			kSyncByte = 0x47
+			kSyncByte = 0x47,
+			kLength = 188
 		};
 
 		Header header;

@@ -14,3 +14,18 @@ TEST(Parser, ShouldSetCallbackPacket) {
 	parser.setCallbackPacket([](const ts::Packet& packet) {});
 }
 
+TEST(Parser, ShouldParseDVBCapture1InSingleBuffer) {
+	int numPackets = helperCountTSPacketsInFile("data/dvb_capture_1.dat");
+	EXPECT_EQ(47963, numPackets);
+}
+
+TEST(Parser, ShouldParseDVBCapture2InSingleBuffer) {
+	int numPackets = helperCountTSPacketsInFile("data/dvb_capture_2.dat");
+	EXPECT_EQ(47962, numPackets);
+}
+
+TEST(Parser, ShouldParseDVBCapture3InSingleBuffer) {
+	int numPackets = helperCountTSPacketsInFile("data/dvb_capture_3.dat");
+	EXPECT_EQ(47963, numPackets);
+}
+

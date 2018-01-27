@@ -93,7 +93,7 @@ TEST(Packet, ShouldPackPacketToCorrectSize) {
 	UNUSED(packet);
 
 	unsigned packetSize = sizeof(packet);
-	EXPECT_EQ(188, packetSize);
+	EXPECT_EQ(ts::Packet::kLength, packetSize);
 }
 
 TEST(Packet, ShouldDefineConstantForStuffingByte) {
@@ -104,3 +104,6 @@ TEST(Packet, ShouldDefineConstantForSyncByte) {
 	EXPECT_EQ(0x47, ts::Packet::kSyncByte);
 }
 
+TEST(Packet, ShouldDefineConsantForPacketLength) {
+	EXPECT_EQ(188, ts::Packet::kLength);
+}
