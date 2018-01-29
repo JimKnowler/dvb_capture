@@ -33,16 +33,36 @@ std::vector<uint8_t> helperReadFile(const char* filename) {
 	return buffer;	
 }
 
-int helperCountTSPacketsInFile(const char* filename) {
+int helperCountTSPacketsInFile(const char* filename, int chunkSize, int inNumBytes) {
 	int numPackets = 0;
 
 	ts::Parser parser;
 	parser.setCallbackPacket([&](const ts::Packet& packet) {
 		numPackets += 1;
 	});
-
+	
 	std::vector<uint8_t> buffer = helperReadFile(filename);
-	parser.parse(&buffer.front(), buffer.size());
+
+	size_t numBytes;
+	if (inNumBytes == -1) {
+		numBytes = buffer.size();
+	} else {
+		numBytes = size_t(inNumBytes);
+	}
+
+	if (chunkSize == -1) {
+		// parse in a single buffer
+		parser.parse(&buffer.front(), numBytes);
+	} else {
+		// parse as a sequence of smaller chunks
+		size_t readIndex = 0;
+		size_t end = numBytes - chunkSize;
+		const uint8_t* pBuffer = &buffer.front();
+		while (readIndex <= end) {
+			parser.parse(pBuffer+readIndex, chunkSize);
+			readIndex += chunkSize;
+		}
+	}
 
 	return numPackets;
 }
