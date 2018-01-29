@@ -21,6 +21,8 @@ namespace ts {
 			kScrambledWithOddKey = 3
 		};
 
+		/// @struct Header
+		/// @note Remember to convert Big Endian network order to Local Endian
 		struct Header {
 			uint32_t syncByte : 8;
 			uint32_t transportErrorIndicator : 1;
@@ -32,6 +34,8 @@ namespace ts {
 			uint32_t continuityCounter : 4;
 		};
 
+		/// @struct AdaptationFieldHeader
+		/// @note Remember to convert Big Endian network order to Local Endian
 		struct AdaptationFieldHeader {
 			uint16_t adaptationFieldLength : 8;
 			uint16_t discontinuityIndicator : 1;
@@ -63,6 +67,8 @@ namespace ts {
 			uint8_t transportPrivateDataLength;
 		};
 
+		/// @struct AdaptatoinExtensionField
+		/// @note Remember to convert Big Endian network order to Local Endian
 		struct AdaptationExtensionField {
 			uint16_t adaptationExtensionLength : 8;
 			uint16_t flagLegalTimeWindow : 1;
@@ -71,6 +77,8 @@ namespace ts {
 			uint16_t reserved : 5;
 		};
 
+		/// @struct LegalTimeWindow
+		/// @note Remember to convert Big Endian network order to Local Endian
 		struct LegalTimeWindow {
 			uint16_t flagLegalTimeWindowValid : 1;
 			uint16_t legalTimeWindowOffset : 15;
