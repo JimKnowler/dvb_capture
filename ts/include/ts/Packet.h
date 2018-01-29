@@ -8,16 +8,16 @@ namespace ts {
 	public:
 
 		enum AdaptationFieldControl : uint32_t {
+			kReserved = 0,
 			kPayloadOnly = 1,
 			kAdaptationFieldOnly = 2,
-			kAdaptationFieldFollowedByPayload = 3,
-			kReserved
+			kAdaptationFieldFollowedByPayload = 3,			
 		};
 		
 		enum TransportScramblingControl : uint32_t {
 			kNotScrambled = 0,
 			kReservedForFutureUse = 1,
-			kScrambledWithEventKey = 2,
+			kScrambledWithEvenKey = 2,
 			kScrambledWithOddKey = 3
 		};
 
