@@ -5,7 +5,9 @@
 
 namespace ts {
 
-	Parser::Parser() : packetCacheUsed(0)
+	Parser::CallbackPacket nullCallback = [](const Packet&){};
+
+	Parser::Parser() : m_callbackPacket(nullCallback), packetCacheUsed(0)
 	{
 
 	}

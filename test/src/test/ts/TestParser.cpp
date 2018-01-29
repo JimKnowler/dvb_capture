@@ -68,3 +68,9 @@ TEST(Parser, ShouldParseDVBCapture3In100ByteChunks) {
 	EXPECT_EQ(kNumPacketsDVBCapture3, numPackets);
 }
 
+TEST(Parser, ShouldParseWithoutSettingCallback) {
+	std::vector<uint8_t> buffer = helperReadFile("data/dvb_capture_1.dat");
+	ts::Parser parser;
+	parser.parse(&buffer.front(), buffer.size());
+}
+

@@ -32,12 +32,15 @@ void run() {
 	dvbTuner->createGraph();
 
 	util::FileSink fileSink("dvb_capture.dat");
+	ts::Parser parser;
 
 	dvbTuner->setCallbackTransportStream([&](const BYTE* buffer, long length) {		
 		printf("Transport stream data -> [%02x %02x %02x %02x %02x %02x %02x %02x]\n",
 			buffer[0], buffer[1], buffer[2], buffer[3], buffer[4], buffer[5], buffer[6], buffer[7]);
 
 		fileSink.write(buffer, length);
+
+		parser.parse(buffer, length);
 	});
 	
 	printf("Tune\n");
