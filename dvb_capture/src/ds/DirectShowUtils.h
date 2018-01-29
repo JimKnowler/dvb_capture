@@ -7,7 +7,7 @@
 
 #define LOG_HR( _str, _hr ) printf("0x%08X : %s\n", _hr, _str)
 #define INVOKE_HR( _com ) ::ds::invokeHR( _com, #_com )
-#define VALIDATE_HR( _com ) { HRESULT _hr = (_com); LOG_HR( #_com, _hr); assert(SUCCEEDED(_hr)); }
+#define VALIDATE_HR( _com ) { HRESULT _hr = (_com); if(!SUCCEEDED(_hr)) { LOG_HR( #_com, _hr); assert(SUCCEEDED(_hr)); } }
 
 namespace ds {
 	HRESULT invokeHR(HRESULT hr, const char* str);
