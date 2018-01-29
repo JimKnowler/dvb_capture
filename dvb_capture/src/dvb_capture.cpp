@@ -69,7 +69,7 @@ namespace {
 void onPacket(const ts::Packet& packet) {
 	uint32_t pid = packet.header.pid;
 	if (pidMap.find(pid) == pidMap.end()) {
-		printf("found PID [%u]\n", pid);
+		printf("found PID [0x%04X]\n", pid);
 		pidMap[pid] = 0;
 	}
 	
@@ -83,6 +83,6 @@ void reportPacketStats() {
 	for (; it != pidMap.end(); it++) {
 		uint32_t pid = it->first;
 		uint32_t packetCount = it->second;
-		printf(" >> PID [%04u] => [%d]\n", pid, packetCount);
+		printf(" >> PID [0x%04X] => [%d]\n", pid, packetCount);
 	}
 }
