@@ -2,6 +2,7 @@
 #include "ts/Packet.h"
 
 #include <algorithm>
+#include <assert.h>
 
 namespace ts {
 
@@ -72,11 +73,9 @@ namespace ts {
 		}
 	}
 
-	void Parser::emitPacketFromBuffer(const uint8_t* buffer) {
-		static int emitCount = 0;
-		emitCount += 1;
-
+	void Parser::emitPacketFromBuffer(const uint8_t* buffer) {		
 		const ts::Packet* packet = reinterpret_cast<const ts::Packet*>(buffer);
+		assert(packet->header.syncByte == Packet::kSyncByte);
 		m_callbackPacket(*packet);
 	}
 
